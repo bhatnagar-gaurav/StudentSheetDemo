@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/students_id"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/student_item_background"
+    android:orientation="horizontal"
+    android:paddingLeft="8dp"
+    android:paddingRight="8dp"
+    android:paddingTop="8dp" >
+
+    <ImageView
+        android:id="@+id/studentProfilePic"
+        android:layout_width="wrap_content"
+        android:layout_height="53dp"
+        android:contentDescription="@string/profile_pic_description"
+        android:cropToPadding="false"
+        android:gravity="center"
+        android:scaleType="fitCenter"
+        android:layout_weight="0.09" />
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="6dp"
+        android:layout_weight="0.84"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/textView_student_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:singleLine="true"
+            android:textColor="@color/student_name_text_color"
+            android:textIsSelectable="false"
+            android:textSize="16sp"
+            android:textStyle="bold" >
+        </TextView>
+
+        <TextView
+            android:id="@+id/textView_student_roll_no"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="4dp"
+            android:layout_marginTop="2dp"
+            android:singleLine="true"
+            android:textColor="@android:color/black"
+            android:textIsSelectable="false"
+            android:textSize="14sp" >
+        </TextView>
+    </LinearLayout>
+
+</LinearLayout>

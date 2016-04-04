@@ -1,0 +1,48 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".userinterface.StudentFragment"
+    android:background="@color/default_background"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:orientation="vertical">
+
+    <LinearLayout
+        style="@style/TopBarLayout"
+        android:padding="6dp" >
+
+        <EditText
+            android:id="@+id/text_edit_search_students"
+            style="@style/TextViewSearchEditor"
+            android:textCursorDrawable="@null"
+            android:paddingLeft="5dp"
+            android:paddingRight="2dp"
+            android:paddingEnd="2dp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:baselineAligned="false">
+
+        <ListView
+            android:id="@android:id/list"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:fastScrollEnabled="true" />
+
+        <LinearLayout
+            android:id="@+id/sideIndex"
+            android:layout_width="40dip"
+            android:layout_height="fill_parent"
+            android:background="#FFF"
+            android:gravity="center_horizontal"
+            android:orientation="vertical" >
+        </LinearLayout>
+    </LinearLayout>
+
+
+
+</LinearLayout>

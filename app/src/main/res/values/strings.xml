@@ -1,0 +1,28 @@
+<resources>
+    <!-- General -->
+    <string name="app_name">StudentSheet</string>
+    <string name="action_settings">Settings</string>
+    <string name="no_internet_connection">No Internet Connection</string>
+    <string name="close">Close</string>
+    <string name="error_dialog_title">Error!</string>
+    <string name="back">Back</string>
+
+    <!-- Content Description for Row's Thumbnail -->
+    <string name="profile_pic_description">Thumbnail Description</string>
+
+
+    <!-- List View Populating Details -->
+    <string name="tag_student_first_name">fName</string>
+    <string name="tag_student_last_name">lName</string>
+    <string name="tag_student_full_name">Student Full Name</string>
+    <string name="tag_roll_no">rollNo</string>
+    <string name="tag_marks">marks</string>
+    <string name="tag_profile_pic">profilePic</string>
+    <string name="tag_subject_name">subjectName</string>
+    <string name="dummy_text">Dummy Text</string>
+    <string name="error_unexpected">Unexpected Error</string>
+
+    <!-- Search Actions -->
+    <string name="search_student_name">Search By Last Name</string>
+
+</resources>

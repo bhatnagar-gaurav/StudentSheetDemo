@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="top_bar_background">#384861</color>
+    <color name="top_bar_text_color">#FFFFFF</color>
+    <color name="student_item_background">#FFF3F3</color>
+    <color name="default_background">#FFE5EB</color>
+
+    <color name="student_name_text_color">#355287</color>
+    <color name="student_selection_alphabet_background">#ebebec</color>
+
+</resources>

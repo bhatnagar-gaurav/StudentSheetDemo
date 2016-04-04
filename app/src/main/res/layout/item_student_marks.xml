@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/student_subject_id"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/student_item_background"
+    android:orientation="horizontal"
+    android:paddingLeft="8dp"
+    android:paddingRight="8dp"
+    android:paddingTop="8dp" >
+
+    <TextView
+        android:id="@+id/textView_student_subject"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:singleLine="true"
+        android:textColor="@color/student_name_text_color"
+        android:textIsSelectable="false"
+        android:textSize="16sp"
+        android:textStyle="bold" >
+    </TextView>
+
+    <TextView
+        android:id="@+id/textView_student_subject_marks"
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="4dp"
+        android:layout_marginTop="2dp"
+        android:singleLine="true"
+        android:textColor="@android:color/black"
+        android:textIsSelectable="false"
+        android:textSize="14sp" >
+    </TextView>
+</LinearLayout>
