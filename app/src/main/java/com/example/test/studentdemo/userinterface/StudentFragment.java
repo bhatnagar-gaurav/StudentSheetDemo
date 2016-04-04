@@ -8,6 +8,8 @@ import android.app.ListFragment;
 import android.app.ProgressDialog;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.Gravity;
@@ -61,6 +63,8 @@ public class StudentFragment extends ListFragment implements WebServiceCallbacks
     private static float sideIndexY;
     private int indexListSize;
     private View contentView;
+    private ArrayList<Student> searchStudentList;
+    int searchTextLength;
 
     public StudentFragment(){
         mApplication = StudentDemoApplication.getInstance();
@@ -97,7 +101,14 @@ public class StudentFragment extends ListFragment implements WebServiceCallbacks
         else{
             this.studentList = savedInstanceState.getParcelableArrayList(KEY_DATA_SET);
             if (this.studentList != null){
-                this.populateListView();
+                this.populateListView(this.studentList);
+                // Clearing the Search Edit Text
+                if (!this.mSearchEditStudentText.getText().toString().equalsIgnoreCase("")){
+                    this.mSearchEditStudentText.setText("");
+                }
+                // Enabling the search Functionality
+                searchStudentList = new ArrayList<Student>(this.studentList.size());
+                enableSearchFunctionality();
             }
             else{
                 Toast.makeText(mApplication,"WebService getting attached to the new recreated fragment",Toast.LENGTH_LONG).show();
@@ -124,6 +135,7 @@ public class StudentFragment extends ListFragment implements WebServiceCallbacks
         String searchByItems = getResources().getString(R.string.search_student_name);
         mSearchEditStudentText.setHint(searchByItems);
         mSearchEditStudentText.setSingleLine(true);
+        mSearchEditStudentText.setText("");
         if (alphabet.size() > 0){
             this.initialize();
         }
@@ -161,7 +173,11 @@ public class StudentFragment extends ListFragment implements WebServiceCallbacks
                     if (studentsList.studentsList.size() != 0){
                         // Initializing the Data-set
                         this.studentList = studentsList.studentsList;
-                        populateListView();
+                        populateListView(this.studentList);
+                        // Enabling the search Functionality for the List View
+                        searchStudentList = new ArrayList<Student>(this.studentList.size());
+                        enableSearchFunctionality();
+
                     }
                     else{
                         // The scenario when there are no students in the Array List.
@@ -180,17 +196,17 @@ public class StudentFragment extends ListFragment implements WebServiceCallbacks
         }
     }
 
-    //Helper Method for Populating the List View.
-    public void populateListView(){
+    //Helper Method for Populating the List View with the given results. .
+    public void populateListView(ArrayList<Student> studentsList){
         // Sorting the arraylist via student Last name
-        Collections.sort(this.studentList, new CustomStudentComparator());
+        Collections.sort(studentsList, new CustomStudentComparator());
         List rows = new ArrayList();
         int start = 0;
-        int end = 0;
+        int end;
         String previousLetter = null;
-        Object[] tmpIndexItem = null;
+        Object[] tmpIndexItem;
         Pattern numberPattern = Pattern.compile("[0-9]");
-        for (Student student : this.studentList) {
+        for (Student student : studentsList) {
             String firstLetter = student.getlName().substring(0, 1);
             // Group numbers together in the scroller
             if (numberPattern.matcher(firstLetter).matches()) {
@@ -233,6 +249,53 @@ public class StudentFragment extends ListFragment implements WebServiceCallbacks
         updateList();
     }
 
+    // Helper Method For Enabling the search Functionality. Not Thoroughly optimized but a working solution for now.
+    private void enableSearchFunctionality(){
+        mSearchEditStudentText.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
+                // Retrieving the Text in the Search Edit Text
+                String searchString = mSearchEditStudentText.getText().toString();
+                searchTextLength = searchString.length();
+                if (searchTextLength >= 3){
+                    // Clearing the search Data set
+                    searchStudentList.clear();
+                    for (int searchCounter =0;searchCounter<studentList.size();searchCounter++){
+                        String studentLastName = studentList.get(searchCounter).getlName();
+                        if (searchTextLength <= studentLastName.length()){
+                            //Comparing the Search String in EditText with Student Last Names in the ArrayList
+                            if(searchString.trim().equalsIgnoreCase(studentLastName.substring(0,searchTextLength)))
+                                searchStudentList.add(studentList.get(searchCounter));
+                        }
+                    }
+                    // populating the listView with search results
+                    if (searchStudentList.size() > 0){
+                        if (alphabet.size() > 0){
+                            initialize();
+                        }
+                        populateListView(searchStudentList);
+                    }
+                    Utils.saveBoolValueForName(Utils.SETTING_IS_SEARCH_FRAGMENT,true);
+
+                }
+                // Coming Back to the original List View.
+                else if (searchTextLength == 0){
+                    Utils.saveBoolValueForName(Utils.SETTING_IS_SEARCH_FRAGMENT,false);
+                    clearSearchFunctionality();
+                }
+            }
+        });
+    }
 
     // From the ItemClickListener
     @Override
@@ -254,8 +317,26 @@ public class StudentFragment extends ListFragment implements WebServiceCallbacks
         }
     }
 
+    // Helper Method for Clearing the Search Functionality
+    public void clearSearchFunctionality(){
+        if (!Utils.getBoolForName(Utils.SETTING_IS_SEARCH_FRAGMENT,false)){
+            if (!this.mSearchEditStudentText.getText().toString().equalsIgnoreCase("")){
+                this.mSearchEditStudentText.setText("");
+            }
+            if (alphabet.size() > 0){
+                this.initialize();
+            }
+            if (this.studentList != null){
+                populateListView(this.studentList);
+            }
+        }
 
-    /* Methods for sorting the student Data set by Name. */
+    }
+
+
+
+    /* Classes and Methods for sorting the student Data set by Name. */
+
     class SideIndexGestureListener extends
             GestureDetector.SimpleOnGestureListener {
         @Override

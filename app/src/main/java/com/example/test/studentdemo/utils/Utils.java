@@ -10,10 +10,12 @@ import com.example.test.studentdemo.StudentDemoApplication;
 
 /**
  * Created by gaurav_bhatnagar on 4/4/2016.
+ * This File is for Different Helper Methods used in the application.
  */
 public class Utils {
     static public final int NOT_EXISTS = -1;
     static private final String SHARED_PREFERENCES = "SETTINGS";
+    public static final String SETTING_IS_SEARCH_FRAGMENT = "SEARCH_STUDENT_FRAGMENT";
 
     public static void saveBoolValueForName(final String name, boolean value) {
         SharedPreferences settings = StudentDemoApplication.getInstance().getSharedPreferences(SHARED_PREFERENCES, Context.MODE_PRIVATE);
