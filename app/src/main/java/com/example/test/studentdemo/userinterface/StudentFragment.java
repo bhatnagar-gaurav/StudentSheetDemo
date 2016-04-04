@@ -124,6 +124,10 @@ public class StudentFragment extends ListFragment implements WebServiceCallbacks
         if (this.studentList != null){
             outState.putParcelableArrayList(KEY_DATA_SET,studentList);
         }
+        // Clearing the Search Edit Text
+        if (!this.mSearchEditStudentText.getText().toString().equalsIgnoreCase("")){
+            this.mSearchEditStudentText.setText("");
+        }
     }
 
     @Override
@@ -135,7 +139,10 @@ public class StudentFragment extends ListFragment implements WebServiceCallbacks
         String searchByItems = getResources().getString(R.string.search_student_name);
         mSearchEditStudentText.setHint(searchByItems);
         mSearchEditStudentText.setSingleLine(true);
-        mSearchEditStudentText.setText("");
+        // Clearing the Search Edit Text
+        if (!this.mSearchEditStudentText.getText().toString().equalsIgnoreCase("")){
+            this.mSearchEditStudentText.setText("");
+        }
         if (alphabet.size() > 0){
             this.initialize();
         }

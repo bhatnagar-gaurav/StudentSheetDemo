@@ -6,15 +6,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Filter;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.example.test.studentdemo.R;
 import com.example.test.studentdemo.StudentDemoApplication;
+import com.example.test.studentdemo.imageutils.ImageLoader;
 import com.example.test.studentdemo.model.Student;
-import com.example.test.studentdemo.model.StudentsList;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
@@ -28,10 +26,12 @@ public class StudentListAdapter extends BaseAdapter {
     private static final String TAG = StudentListAdapter.class.getSimpleName();
     StudentDemoApplication mApplication;
     Picasso picassoInstance;
+    ImageLoader imageLoader;
 
     public StudentListAdapter(StudentDemoApplication mApplication){
         this.mApplication = mApplication;
         picassoInstance = this.mApplication.getPicassoInstance(mApplication);
+      //  imageLoader = new ImageLoader(mApplication);
 
     }
 
@@ -125,6 +125,7 @@ public class StudentListAdapter extends BaseAdapter {
             }
 
             // Lazy Loading the thumbnails For each Row including the caching mechanism.
+
             picassoInstance.with(this.mApplication)
                     .load(item.item.getProfilePic())
                     .networkPolicy(NetworkPolicy.OFFLINE)
@@ -133,6 +134,7 @@ public class StudentListAdapter extends BaseAdapter {
                     .fit()
                     .into(profilePicView, new Callback() {
                         Item item = (Item) StudentListAdapter.this.getItem(position);
+
                         @Override
                         public void onSuccess() {
 
@@ -159,6 +161,7 @@ public class StudentListAdapter extends BaseAdapter {
                                     });
                         }
                     });
+           // imageLoader.DisplayImage(item.item.getProfilePic(),profilePicView);
         }
         else { // Section
             if (view == null) {
@@ -172,17 +175,4 @@ public class StudentListAdapter extends BaseAdapter {
         }
         return view;
     }
-
-    /*private class StudentFilter extends Filter {
-        @Override
-        protected FilterResults performFiltering(CharSequence constraint) {
-
-        }
-
-        @Override
-        protected void publishResults(CharSequence constraint,FilterResults results) {
-
-        }
-
-    }*/
 }
